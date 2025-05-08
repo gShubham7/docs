@@ -1,28 +1,113 @@
 ---
-title: MID Performance
-description: <div>
-      This report shows your each MID (gateway) and its details during the
-      selected period.
-      <ul className='list-disc pl-5 mt-2 space-y-1'>
-        <li>How many transactions you took in</li>
-        <li>How many declines you had during this period</li>
-        <li>
-          How many chargebacks you got (by chargeback post date, not by sales
-          date)
-        </li>
-        <li>How much volume you took vs your monthly cap</li>
-      </ul>
-    </div>
+title: "MID Performance"
+description: "<div> This report shows your each MID (gateway) and its details during the selected period. <ul className='list-disc pl-5 mt-2 space-y-1'> <li>How many transactions you took in</li> <li>How many declines you had during this period</li> <li> How many chargebacks you got (by chargeback post date, not by sales date) </li> <li>How much volume you took vs your monthly cap</li> </ul> </div>"
 ---
 
 <img
-  className="block dark:hidden"
+  className="block dark:hidden mx-auto my-8 rounded-lg shadow-lg"
   src="/images/mid-performance.png"
   alt="Hero Light"
 />
 
+## MID Notifications
+
+> ### Notification Drawer UI
 <img
-  className="hidden dark:block"
-  src="/images/mid-performance-dark.png"
-  alt="Hero Light"
+  className="border rounded-xl mx-auto my-6 shadow-xl"
+  src="/images/mid-notification.png"
+  alt="Mid-Notification"
 />
+
+<CardGroup cols={2} className="space-y-6">
+  <Card title="📊 CB % (Total)" className="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 ease-in-out">
+    $$
+    \frac{\text{Visa CBs} + \text{MC CBs}}{\text{Total Sales}}
+    $$
+
+    _(Excludes \$0 transactions)_
+  </Card>
+  <Card title="💳 Visa CB % (VAMP)" className="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 ease-in-out">
+    $$
+    \frac{\text{Visa CBs}_{\text{this month}}}{\text{Visa Sales}_{\text{this month}}}
+    $$
+
+    _(Excludes \$0 transactions)_
+  </Card>
+  <Card title="💳 MC CB % " className="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 ease-in-out">
+    $$
+    \frac{\text{MC CBs}_{\text{this month}}}{\text{MC Sales}_{\text{last month}}}
+    $$
+
+    _(Excludes \$0 transactions)_
+  </Card>
+  <Card title="📦 CB Count (Total)" className="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 ease-in-out">
+    $$
+    \text{Visa CBs} + \text{MC CBs}
+    $$
+  </Card>
+  <Card title="📦 Visa CB Count" className="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 ease-in-out">
+    $$
+    \text{Visa CBs only}
+    $$
+  </Card>
+  <Card title="📦 MC CB Count" className="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 ease-in-out">
+    $$
+    \text{MC CBs only}
+    $$
+  </Card>
+  <Card title="🚫 Decline %" className="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 ease-in-out">
+    $$
+    \frac{\text{Declined Attempts}}{\text{Total Attempts}}
+    $$
+
+    _(Excludes \$0 transactions)_
+  </Card>
+  <Card title="🔐 Specific Decline Rate %" className="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 ease-in-out">
+    $$
+    \frac{\text{Declines}_{\text{reason}}}{\text{Total Declines}}
+    $$
+  </Card>
+  <Card title="🛑 Dormant Gateway" className="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 ease-in-out">
+    No successful sales in last _X_ days
+  </Card>
+  <Card title="🧪 Initial Approval %" className="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 ease-in-out">
+    $$
+    \frac{\text{Initial Approvals}}{\text{Initial Attempts}}
+    $$
+
+    _(Attempt 1 only, excludes \$0 transactions)_
+  </Card>
+  <Card title="♻️ Rebill Approval %" className="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 ease-in-out">
+    $$
+    \frac{\text{Rebill Approvals}}{\text{Rebill Attempts}}
+    $$
+
+    _(Attempt 1 only, excludes \$0 transactions)_
+  </Card>
+  <Card title="⚠️ Alert % (Total)" className="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 ease-in-out">
+    $$
+    \frac{\text{Ethoca} + \text{Verifi}}{\text{Total Sales}}
+    $$
+
+    _(Excludes \$0 transactions)_
+  </Card>
+  <Card title="📡 Ethoca Alert % (MC)" className="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 ease-in-out">
+    $$
+    \frac{\text{Ethoca Alerts}}{\text{MC Sales}_{\text{last month}}}
+    $$
+
+    _(Excludes \$0 transactions)_
+  </Card>
+  <Card title="📡 Verifi Alert % (Visa)" className="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 ease-in-out">
+    $$
+    \frac{\text{Verifi Alerts}}{\text{Visa Sales}_{\text{this month}}}
+    $$
+
+    _(Excludes \$0 transactions)_
+  </Card>
+  <Card title="📈 Capacity Reached" className="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 ease-in-out">
+    $$
+    \frac{\text{Revenue Processed}_{\text{this month}}}{\text{Monthly Gateway Cap}}
+    $$
+  </Card>
+</CardGroup>
