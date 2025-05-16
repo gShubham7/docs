@@ -22,6 +22,10 @@
       {
         "tab": "Beast Report Pages",
         "pages": ["reports/mid-performance", "reports/ltv"]
+      },
+      {
+        "tab": "White Label",
+        "pages": ["white-label/index"]
       }
     ],
     "global": {

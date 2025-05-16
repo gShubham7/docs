@@ -1,0 +1,195 @@
+---
+title: "🏷️ White-labelling Guide "
+description: "This documentation outlines how white-labelling is implemented in a Next.js application using brand-specific assets, themes, and configurations."
+---
+
+## 📁 Directory Structure
+
+```
+/your-app-root
+│── config/
+│   └── brandConfig.js       ← Dynamic brand setup and mapping
+│── public/
+│   └── [brandName]/         ← Brand-specific static assets
+│       ├── favicon.ico
+│       ├── icon.svg
+│       ├── icon-dark.svg
+│       ├── logo.svg
+│       └── logo-dark.svg
+│── theme/
+│   └── [brandName]/
+│       ├── themeConfig.js   ← appThemes (light & dark)
+│       ├── light.json       ← Power BI light theme
+│       └── dark.json        ← Power BI dark theme
+```
+
+---
+
+## 🧠 Branding Configuration – `config/brandConfig.js`
+
+This file contains all brand-specific configurations, including:
+
+- Brand name and alt text
+- Logo path prefix (used dynamically in UI)
+- App theme
+- Power BI theme JSONs
+- Feature flags (like PWA, user management, etc.)
+
+### Example
+
+```js
+export const brandConfigs = {
+  beastinsights: {
+    name: "Beastinsights",
+    logo: "/images/beastinsights",
+    altText: "beastinsights",
+    appThemes: {
+      light: beastinsightsLight,
+      dark: beastinsightsDark,
+    },
+    pbiThemes: {
+      light: beastinsightsPbiLight,
+      dark: beastinsightsPbiDark,
+    },
+    userManagementEnabled: true,
+    includePWA: true,
+  },
+  phoenix: {
+    name: "Phoenix",
+    logo: "/images/phoenix",
+    altText: "phoenix",
+    appThemes: {
+      light: phoenixLight,
+      dark: phoenixDark,
+    },
+    pbiThemes: {
+      light: phoenixPbiLight,
+      dark: phoenixPbiDark,
+    },
+    userManagementEnabled: false,
+    includePWA: false,
+  },
+};
+
+export const brand =
+  brandConfigs[process.env.NEXT_PUBLIC_BRAND_NAME.toLowerCase()];
+```
+
+### 🔄 Dynamic Usage
+
+Set the environment variable in `.env`:
+
+```
+NEXT_PUBLIC_BRAND_NAME=beastinsights
+```
+
+Use it in your app:
+
+```ts
+import { brand } from "@/config/brandConfig";
+
+<img src={`${brand.logo}/logo.svg`} alt={brand.altText} />
+```
+
+---
+
+## 🖼️ Static Assets (Public Folder)
+
+Each brand folder under `/public/[brand]/` contains:
+
+- `favicon.ico`
+- `logo.svg`
+- `logo-dark.svg`
+- `icon.svg`
+- `icon-dark.svg`
+
+These are referenced dynamically via the `brand.logo` path defined in `brandConfig.js`.
+
+---
+
+## 🎨 Themes (Theme Folder)
+
+Each brand folder under `/theme/[brand]/` contains:
+
+- `themeConfig.js` (exports `lightTheme`, `darkTheme`)
+- `light.json`, `dark.json` (Power BI theme configuration)
+
+These are statically imported into `brandConfig.js`.
+
+---
+
+## ✨ Adding a New Brand
+
+To onboard a new brand:
+
+- **`Add assets under public/[brandName]/`**
+
+  Include:
+  - `favicon.ico`
+  - `logo.svg`
+  - `logo-dark.svg`
+  - `icon.svg`
+  - `icon-dark.svg`
+- **`Add theme under theme/[brandName]/`**\
+  Include:
+  - `themeConfig.js`
+  - `light.json`
+  - `dark.json`
+- **`Update config/brandConfig.js:`**
+
+```js
+import newBrandPbiLight from "@/theme/newbrand/light.json";
+import newBrandPbiDark from "@/theme/newbrand/dark.json";
+import {
+  lightTheme as newBrandLight,
+  darkTheme as newBrandDark,
+} from "@/theme/newbrand/themeConfig";
+
+brandConfigs["newbrand"] = {
+  name: "NewBrand",
+  logo: "/images/newbrand",
+  altText: "newbrand",
+  appThemes: {
+    light: newBrandLight,
+    dark: newBrandDark,
+  },
+  pbiThemes: {
+    light: newBrandPbiLight,
+    dark: newBrandPbiDark,
+  },
+  userManagementEnabled: false,
+  includePWA: true,
+};
+```
+
+4. **`Set the new brand in .env:`**
+
+```
+NEXT_PUBLIC_BRAND_NAME=newbrand
+```
+
+---
+
+## 🛠️ Component Usage Example
+
+```tsx
+// Header.jsx
+import { brand } from "@/config/brandConfig";
+
+export default function Header() {
+  return (
+    <header>
+      <img src={`${brand.logo}/logo.svg`} alt={brand.altText} />
+      <h1>{brand.name}</h1>
+    </header>
+  );
+}
+```
+
+---
+
+## ✅ Notes
+
+- Always ensure `.toLowerCase()` usage matches folder names
+- Consider adding a fallback brand if `process.env.NEXT_PUBLIC_BRAND_NAME` is not set
+- You can extend `brandConfigs` to include more flags (e.g., analytics config, routes, etc.)
