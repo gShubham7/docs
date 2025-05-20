@@ -1,9 +1,9 @@
 ---
-title: "🏷️ White-labelling Guide"
+title: "White-labelling Guide"
 description: "This documentation outlines how white-labelling is implemented in a Next.js application using brand-specific assets, themes, and configurations."
 ---
 
-## 📁 Directory Structure
+## Directory Structure
 
 ```
 /your-app-root
@@ -25,7 +25,7 @@ description: "This documentation outlines how white-labelling is implemented in 
 
 ---
 
-## 🧠 Branding Configuration
+## Branding Configuration
 
 The `brandConfig.js`contains all brand-specific configurations, including:
 
@@ -75,7 +75,7 @@ export const brand =
   brandConfigs[process.env.NEXT_PUBLIC_BRAND_NAME.toLowerCase()];
 ```
 
-### 🔄 Dynamic Usage
+### Dynamic Usage
 
 Set the environment variable in `.env`:
 
@@ -93,7 +93,7 @@ import { brand } from "@/config/brandConfig";
 
 ---
 
-## 🖼️ Static Assets (Public Folder)
+## Static Assets (Public Folder)
 
 Each brand folder under `/public/[brand]/` contains:
 
@@ -107,7 +107,7 @@ These are referenced dynamically via the `brand.logo` path defined in `brandConf
 
 ---
 
-## 🎨 Themes (Theme Folder)
+## Themes (Theme Folder)
 
 Each brand folder under `/theme/[brand]/` contains:
 
@@ -118,7 +118,7 @@ These are statically imported into `brandConfig.js`.
 
 ---
 
-## ✨ Adding a New Brand
+## Adding a New Brand
 
 To onboard a new brand:
 
@@ -170,7 +170,7 @@ NEXT_PUBLIC_BRAND_NAME=newbrand
 
 ---
 
-## 🛠️ Component Usage Example
+## Component Usage Example
 
 ```tsx
 // Header.jsx
@@ -188,7 +188,7 @@ export default function Header() {
 
 ---
 
-## ✅ Notes
+## Notes
 
 - Always ensure `.toLowerCase()` usage matches folder names
 - Consider adding a fallback brand if `process.env.NEXT_PUBLIC_BRAND_NAME` is not set
